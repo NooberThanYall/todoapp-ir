@@ -16,7 +16,8 @@ const Page = () => {
     };
 
     loadData();
-  }, [fetchTodos]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=" text-white p-6 w-full h-screen">

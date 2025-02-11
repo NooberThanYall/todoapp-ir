@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import FormRoutine from "../partials/FormRoutine";
 
-const AddRoutineForm = () => {
+const AddRoutineForm = ({setRoutines}) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     async function submitRoutine(e: FormEvent<HTMLFormElement>) {
@@ -17,12 +17,13 @@ const AddRoutineForm = () => {
             headers: {
               'Content-type': 'application/json'
             },
-            body: JSON.stringify(values)
+            //@ts-expect-error kos nane ts
+            body: JSON.stringify({...values, tasks: values.tasks.split('-')})
           });
 
-          const data = await response.json();
+          const {routine} = await response.json();
 
-          
+          setRoutines(routines => [...routines, routine])
           
         } catch (error) {
           console.log(error)

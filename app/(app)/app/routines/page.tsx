@@ -1,3 +1,4 @@
+'use client'
 import AddRoutineForm from "@/app/components/routine/AddRoutineForm";
 import { Button } from "@/app/components/ui/button";
 import { Plus } from "lucide-react";
@@ -12,9 +13,8 @@ const Page = () => {
         async function fetchRoutines() {
             try {
                 setLoading(true)
-                const res = await fetch("http://127.0.0.1/api/routine");
+                const res = await fetch("http://127.0.0.1:3000/api/routine");
                 const data = await res.json();
-                console.log('DATATTATATA:', data)
                 setRoutines(data);
             } catch (error) {
                 console.log(error);
@@ -36,15 +36,17 @@ const Page = () => {
                 روتین ها
             </h1>
 
-            <h3 className="text-xl text-center opacity-50 pb-4">
+            {routines.length > 1 ? routines.map(routine => {
+                return <RoutineCard routine={routine} key={routine._id} />
+            }) : <h3 className="text-xl text-center opacity-50 pb-4">
                 روتینی یافت نشد
-            </h3>
+            </h3>}
 
             {state == "form" ? (
-                <AddRoutineForm />
+                <AddRoutineForm setRoutines={setRoutines}/>
             ) : (
                 <Button
-                    onClick={() => handleAddButton}
+                onClick={handleAddButton}
                     className="bg-darkblue text-white flex items-center gap-2"
                 >
                     <Plus />
