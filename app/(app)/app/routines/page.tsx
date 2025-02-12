@@ -37,7 +37,9 @@ const Page = () => {
             </h1>
 
             {routines.length > 1 ? routines.map(routine => {
-                return <RoutineCard routine={routine} key={routine._id} />
+                // return <RoutineCard routine={routine} key={routine._id} />
+                //@ts-expect-error huh
+                return <h1 key={routine.title}>{routine.title}</h1>
             }) : <h3 className="text-xl text-center opacity-50 pb-4">
                 روتینی یافت نشد
             </h3>}

@@ -1,5 +1,5 @@
 "use client";
-import { bold } from "@/app/(root)/layout";
+import { bold } from "@/app/(root)/fonts";
 import JoditEditor from "jodit-react";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useRef, useState } from "react";

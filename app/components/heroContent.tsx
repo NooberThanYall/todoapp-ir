@@ -1,13 +1,11 @@
-'use client'
+
 import Image from 'next/image'
 import React from 'react'
-import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { bold } from '../(root)/layout';
+import { bold } from "@/app/(root)/fonts";
 
 const HeroContent = () => {
 
-  const handleClick = () => alert('سلام');
   return (
     <>
     <div className="flex flex-col gap-7">
@@ -31,7 +29,6 @@ const HeroContent = () => {
         <div className="items-center flex h-full"
         >
           <Image
-          onClick={handleClick}
             src={"/images/ill.png"}
             alt="todo"
             height={400}

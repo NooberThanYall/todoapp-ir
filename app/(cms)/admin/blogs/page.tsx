@@ -1,4 +1,4 @@
-import { bold } from "@/app/(root)/layout";
+import { bold } from "@/app/(root)/fonts";
 import BlogListLi from "@/app/components/admin/BlogListLi";
 import LinkClientBtn from "@/app/components/LinkClientBtn";
 import { Blog } from "@/app/models/BlogModel";

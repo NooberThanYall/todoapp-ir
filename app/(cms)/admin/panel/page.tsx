@@ -1,4 +1,4 @@
-import { bold } from '@/app/(root)/layout';
+import { bold } from "@/app/(root)/fonts";
 import { Blog } from '@/app/models/BlogModel';
 import { User } from '@/app/models/UserModel';
 import connectDB from '@/lib/db/mongodb'

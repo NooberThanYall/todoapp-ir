@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { decrypt } from "@/lib/auth/jwt";
 import { User } from "lucide-react";
 
-export async function Navbar() {
+ async function Navbar() {
   const session = cookies().get("session")?.value;
   const user = session ? await decrypt(session) : null;
 
@@ -74,3 +74,4 @@ export async function Navbar() {
     </nav>
   );
 }
+export default Navbar

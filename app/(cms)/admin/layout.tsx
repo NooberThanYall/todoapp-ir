@@ -5,7 +5,7 @@ import { decrypt } from "@/lib/auth/jwt";
 import { redirect } from "next/navigation";
 import React from "react";
 import AdminSidebar from "@/app/components/admin/AdminSideBar";
-import { bold } from "@/app/(root)/layout";
+import { bold } from "@/app/(root)/fonts";
 
 const estedadMed = localFont({
   src: "../../fonts/Estedad-Medium.ttf",

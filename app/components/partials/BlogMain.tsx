@@ -1,5 +1,5 @@
 import { BlogType } from "@/app/models/BlogModel";
-import { bold } from "@/app/(root)/layout";
+import { bold } from "@/app/(root)/fonts";
 import React from "react";
 
 const BlogMain = ({blog}: {blog: BlogType}) => {

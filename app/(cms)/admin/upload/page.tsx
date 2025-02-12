@@ -1,4 +1,4 @@
-import { bold } from '@/app/(root)/layout';
+import { bold } from "@/app/(root)/fonts";
 import UploadPage from '@/app/components/partials/Upload';
 import React from 'react'
 
