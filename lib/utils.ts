@@ -71,7 +71,7 @@ export async function handleSignUp(e: React.FormEvent<HTMLFormElement>, state, s
      const res = await response.json();
 
      if (!res.success) {
-        setState({ ...state, errors: res.errors });
+        setState({ ...state, errors: res.error });
      } else {
         setState({
            success: true,
