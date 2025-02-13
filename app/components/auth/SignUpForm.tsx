@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { z } from "zod";
 import FormRegister from "../partials/FormRegister";
-import FormUpload from "../partials/FormUpload";
 import { handleSignUp } from "@/lib/utils";
 
 type Errors = {
@@ -26,13 +25,12 @@ const initialState: State = {
    success: false,
    errors: {},
    message: "",
-   state: "form",
-   userData: {}
+   // state: "form",
+   // userData: {}
 };
 
 export const SignUpForm = () => {
    const [state, setState] = useState<State>(initialState);
-   const router = useRouter();
 
    return (
       <div className=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-darkblue  ">
@@ -40,13 +38,8 @@ export const SignUpForm = () => {
             <h1 className="text-xl text-center leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white __className_43c461">
                ثبت نام
             </h1>
-            {
-              state.state === 'form' 
-              ?
                <FormRegister handleSignUp={(e) => handleSignUp(e, state, setState)} state={state}/>
-              :
-               <FormUpload state={state} setState={setState}/>
-            }
+
          </div>
       </div>
    );

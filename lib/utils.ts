@@ -61,33 +61,25 @@ export async function handleSignUp(e: React.FormEvent<HTMLFormElement>, state, s
 
 
 
+     const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+           "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validated),
+     });
+     const res = await response.json();
 
-
-     setState((prev: State) => {
-      return {...prev, userData: validated, state: 'upload'}
-     })
-
-
-
-   //   const response = await fetch("/api/auth/register", {
-   //      method: "POST",
-   //      headers: {
-   //         "Content-Type": "application/json",
-   //      },
-   //      body: JSON.stringify(validated),
-   //   });
-   //   const res = await response.json();
-
-   //   if (!res.success) {
-   //      setState({ ...state, errors: res.errors });
-   //   } else {
-   //      setState({
-   //         success: true,
-   //         message: res.message,
-   //         errors: {},
-   //         state: "upload",
-   //      });
-   //   }
+     if (!res.success) {
+        setState({ ...state, errors: res.errors });
+     } else {
+        setState({
+           success: true,
+           message: res.message,
+           errors: {},
+           state: "upload",
+        });
+     }
   } catch (error) {
      if (error instanceof z.ZodError) {
         setState({ ...state, errors: { zod: error.message } });
