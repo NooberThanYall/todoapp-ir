@@ -31,7 +31,7 @@ const FormUpload = ({state, setState}) => {
             })
 
             const data = await response.json();
-
+            console.log(data)
             if(data.success) router.replace('/auth/login')
         } catch (error) {
             console.log(error);

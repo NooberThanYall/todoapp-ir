@@ -1,5 +1,6 @@
 'use client'
 import AddRoutineForm from "@/app/components/routine/AddRoutineForm";
+import RoutineCard from "@/app/components/routine/RoutineCard";
 import { Button } from "@/app/components/ui/button";
 import { Plus } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -37,8 +38,9 @@ const Page = () => {
             </h1>
 
             {routines.length > 1 ? routines.map(routine => {
-                // return <RoutineCard routine={routine} key={routine._id} />
-                //@ts-expect-error huh
+                // @ts-expect-error huh
+                return <RoutineCard routine={routine} key={routine._id} />
+                // @ts-expect-error huh
                 return <h1 key={routine.title}>{routine.title}</h1>
             }) : <h3 className="text-xl text-center opacity-50 pb-4">
                 روتینی یافت نشد
