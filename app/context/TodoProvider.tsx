@@ -30,7 +30,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function fetchTodos(dateVal = date) {
-    const res = await fetch(`http://127.0.0.1:3000/api/todo?date=${dateVal}`, {
+    const res = await fetch(`/api/todo?date=${dateVal}`, {
       method: "GET",
     });
     const todos = await res.json();
@@ -39,7 +39,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function addTodo(task: string, priority: string): Promise<void> {
-    const res = await fetch("http://127.0.0.1:3000/api/todo", {
+    const res = await fetch("/api/todo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 
   async function doneTodo(id: string, done: boolean) {
     //      
-    const res = await fetch("http://127.0.0.1:3000/api/todo", {
+    const res = await fetch("/api/todo", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
