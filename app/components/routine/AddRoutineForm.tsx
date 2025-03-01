@@ -26,8 +26,7 @@ const AddRoutineForm = ({setRoutines}) => {
           setRoutines(routines => [...routines, routine])
           
         } catch (error) {
-          console.log(error)
-        } finally {
+                   } finally {
           setLoading(false)
         }
     }

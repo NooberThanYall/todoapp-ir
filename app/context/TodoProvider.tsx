@@ -1,5 +1,5 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { useUser } from "./UserProvider";
 import { TodoItem } from "../components/todo";
 
@@ -9,11 +9,28 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [todos, setTodos] = useState<{ todoList: TodoItem[] }>({
     todoList: [],
   });
+  const [date, setDate] = useState(() => {
+    const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+    return today;
+  }); // Default to today
+
 
   const user = useUser();
 
-  async function fetchTodos() {
-    const res = await fetch("http://127.0.0.1:3000/api/todo", {
+  useEffect(function(){
+    fetchTodos(date)
+  }, [date])
+
+  function changeDate(val: number) {
+    setDate((prev) => {
+      const dateObj = new Date(prev);
+      dateObj.setDate(dateObj.getDate() + val);
+      return dateObj.toISOString().split("T")[0];
+    });
+  }
+
+  async function fetchTodos(dateVal = date) {
+    const res = await fetch(`http://127.0.0.1:3000/api/todo?date=${dateVal}`, {
       method: "GET",
     });
     const todos = await res.json();
@@ -21,13 +38,13 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
     return todos;
   }
 
-  async function addTodo(task: string): Promise<void> {
+  async function addTodo(task: string, priority: string): Promise<void> {
     const res = await fetch("http://127.0.0.1:3000/api/todo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ task }),
+      body: JSON.stringify({ task, priority }),
     });
 
     if (!res.ok) {
@@ -42,8 +59,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function doneTodo(id: string, done: boolean) {
-    // console.log('kos madaret');
-    
+    //      
     const res = await fetch("http://127.0.0.1:3000/api/todo", {
       method: "PATCH",
       headers: {
@@ -74,7 +90,9 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
         setTodos,
         fetchTodos,
         addTodo,
-        doneTodo
+        doneTodo,
+        date,
+        changeDate
       }}
     >
       {children}

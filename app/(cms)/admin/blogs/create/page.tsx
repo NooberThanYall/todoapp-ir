@@ -30,8 +30,7 @@ const Page = () => {
          const { newBlog }: { newBlog: BlogType } = await res.json();
          router.push(`/blogs/${newBlog._id}`);
       } catch (error) {
-         console.log(error);
-      }
+                }
    };
 
    return (

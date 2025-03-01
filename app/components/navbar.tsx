@@ -11,10 +11,8 @@ import { User } from "lucide-react";
 
   return (
     <nav
-      className="py-4 px-12 shadow-md w-3/4 rounded-lg flex justify-between fixed top-5 left-1/2 transform -translate-x-1/2"
-      style={{
-        backgroundColor: "#0E2338",
-      }}
+      className="py-4 px-12 shadow-md w-3/4 rounded-lg flex justify-between fixed top-5 left-1/2 transform -translate-x-1/2 bg-darkbgsidebar"
+      
     >
       <ul className="text-white flex text-md items-center gap-x-4">
         {!user ? (

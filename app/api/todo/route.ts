@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { log } from "console";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/auth/jwt";
 import connectDB from "@/lib/db/mongodb";
 import { Todo } from "@/app/models/TodoModel";
-import { User } from "@/app/models/UserModel";
 
 export async function GET(req: NextRequest) {
   await connectDB();
+
+  const searchParams = req.nextUrl.searchParams;
+  const date = searchParams.get('date');
+
+
+  const startOfDay = new Date(date);
+  startOfDay.setHours(0,0,0,0)
+
+  const endOfDay = new Date(date);
+  endOfDay.setHours(23,59,59,999)
 
   const session = await cookies().get("session")?.value;
   // @ts-expect-error huh
@@ -15,10 +23,11 @@ export async function GET(req: NextRequest) {
 
   try {
     //@ts-expect-error huh
-    const todos = await Todo.find({ owner: _id });
-
-    console.log(todos);
-    
+    const todos = await Todo.find({
+      owner: _id,
+      createdAt: { $gte: startOfDay, $lte: endOfDay }, // Filter by date range
+    }).sort({ createdAt: -1 });
+         
     return NextResponse.json({ todoList: todos });
   } catch (error) {
     return NextResponse.json({ error: error.message });
@@ -26,7 +35,7 @@ export async function GET(req: NextRequest) {
 }
 export async function POST(req: NextRequest) {
   await connectDB();
-  const { task } = await req.json();
+  const { task, priority } = await req.json();
   const session = await cookies().get("session")?.value;
   // @ts-expect-error huh
   const { _id } = await decrypt(session);
@@ -34,6 +43,7 @@ export async function POST(req: NextRequest) {
   try {
     const todo = new Todo({
       task,
+      priority,
       done: false,
       owner: _id,
     });
@@ -51,19 +61,32 @@ export async function PATCH(req: NextRequest) {
   const {id, done} = await req.json();
 
   try {
-    console.log(id, done);
-    
+         
     // @ts-expect-error huh
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
       { done: !done },
       { new: true } // Return the updated document
     );
-    console.log(updatedTodo);
-    
+         
 
     return NextResponse.json({updatedTodo})
   } catch (error) {
     return NextResponse.json({error})
+  }
+}
+
+export async function DELETE() {
+  await connectDB();
+
+
+  try {
+
+    const todos = await Todo.deleteMany({});
+
+         
+    return NextResponse.json({ todoList: todos });
+  } catch (error) {
+    return NextResponse.json({ error: error.message });
   }
 }

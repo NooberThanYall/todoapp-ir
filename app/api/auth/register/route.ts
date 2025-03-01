@@ -6,8 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     await connectDB()
     const {name, email, password} = await req.json();
-    console.log('data in the back', name, email, password);
-    
+         
 
     try {
         
@@ -21,8 +20,7 @@ export async function POST(req: NextRequest) {
                 admin: false,
                 todoList: []
             })
-            console.log('data from db:', newUser)
-
+             
             return NextResponse.json({success: true, user: {
                 _id: newUser._id,
                 name: newUser.name,

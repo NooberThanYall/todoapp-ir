@@ -1,72 +1,102 @@
-import { PlusCircle, Trash2 } from 'lucide-react'
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { FormEvent, useState } from "react";
+import FormAdd from "./todo/formAdd";
+import TodoItem from "./todo/TodoItem";
+import SortingBtns from "./todo/SortingBtns";
+import PersianDatePicker from "./partials/Datepicker";
+import ShamsiDatePicker from "./partials/Datepicker";
 
 export interface TodoItem {
-  _id: string;
-  task: string;
-  done: boolean;
-  owner: string;
+    _id: string;
+    task: string;
+    done: boolean;
+    owner: string;
 }
 
 interface TodosResponse {
-  todoList: TodoItem[];
+    todoList: TodoItem[];
 }
 
+const Todo = ({
+    todos = { todoList: [] },
+    add,
+    done,
+}: {
+    todos?: TodosResponse;
+    add: (task: string) => Promise<void>;
+    done: (id: string, done: boolean) => Promise<void>;
+}) => {
+    const [sort, setSort] = useState<string>("");
 
-const Todo = ({ todos = { todoList: [] }, add, done }: { todos?: TodosResponse, add:(task: string) => Promise<void> , done:(id: string, done: boolean) => Promise<void> }) => {
-  const [value, setValue] = useState<string>('')
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    add(value)
-    setValue('')
-  }
-  return (
-    <>
-      <h1 className="text-2xl text-center font-bold mb-4 border-b-2 border-white pb-4">
-        لیست کارهای امروز
-      </h1>
-      <form className="mt-6 flex items-center gap-3" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="task"
-          value={value}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
-          placeholder="کار جدید..."
-          className="flex-1 px-4 py-2 text-white bg-darkblue rounded-lg shadow-inner focus:ring-2 focus:ring-darkblue focus:outline-none"
-        />
-        <button type="submit" className="bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 transition">
-          <PlusCircle size={24} />
-        </button>
-      </form>
-      <ul className="space-y-3 max-h-[300px] overflow-hidden scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 p-6">
-        {todos.todoList.length > 0 ? (
-          todos.todoList.map((todo) => (
-            <li
-              key={todo._id}
-              className={`flex gap-3 items-center w-1/4 bg-lightblue text-white px-4 py-2 rounded-lg ${todo.done ? "line-through opacity-40" : ""}`}
-              onClick={() => done(todo._id, todo.done)}
-            >
-              {/* Checkbox for marking as done */}
-              <input
-                type="checkbox"
-                checked={todo.done}
-                // onChange={() => done(todo._id, !todo.done)}
-                className="w-5 h-5 appearance-none cursor-pointer rounded-md bg-darkblue checked:bg-orange-500 border-none outline-none"
-              />
-              <span>{todo.task}</span>
+    const completed = todos.todoList.filter((todo) => todo.done).length;
+    const percentage = (completed / todos.todoList.length) * 100;
 
-              <div className="flex items-center space-x-2 ml-auto">
-                <button>
-                  <Trash2 className="text-red-500" size={20} />
-                </button>
-              </div>
-            </li>
-          ))
-        ) : (
-          <li className="text-center text-gray-400">هیچ کاری موجود نیست</li>
-        )}
-      </ul>
-    </>
-  );
+    return (
+        <div className={"flex flex-col justify-between h-full w-full "}>
+            <div className="flex flex-col gap-4
+            ">
+                <h1 className="text-2xl text-center font-bold ">
+             لیست کارها
+                </h1>
+
+                <ShamsiDatePicker />
+
+                <FormAdd add={add} />
+                <SortingBtns sort={sort} setSort={setSort} />
+                <ul className="space-y-3 max-h-[600px] overflow-hidden scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 flex flex-col flex-wrap p-6">
+                    {todos.todoList.length > 0 ? (
+                        [...todos.todoList]
+                            .sort((a, b) => {
+                                if (sort === "HTL")
+                                    //@ts-expect-error kos madare TS
+                                    return a.priority - b.priority;
+                                if (sort === "LTH")
+                                    //@ts-expect-error kos madare TS
+                                    return b.priority - a.priority;
+                                return 0;
+                            })
+                            .map((todo) => (
+                                <TodoItem
+                                    props={{ todo, done }}
+                                    key={todo._id}
+                                />
+                            ))
+                    ) : (
+                        <li className="text-center text-gray-400">
+                            هیچ کاری موجود نیست
+                        </li>
+                    )}
+                </ul>
+            </div>
+            <div className="bg-darkbgsecondary w-full h-1/5 p-8 rounded-lg flex flex-col justify-around gap-4">
+                <h2 className="text-xl text-center">درصد کار های انجام شده:</h2>
+                <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div
+                        className="bg-orange-500 text-md font-medium text-darkbg text-center p-0.5 leading-none rounded-full"
+                        style={{
+                            width: `${
+                                Number.isNaN(percentage) ? "0" : percentage
+                            }%`,
+                        }}
+                    >
+                        {" "}
+                        {Number.isNaN(Math.floor(percentage))
+                            ? "0"
+                            : Math.floor(percentage)}
+                        %
+                    </div>
+                </div>
+                <h2 className="text-xl text-center">
+                    {" "}
+                    <span className={"text-orange-500"}>
+                        {completed}
+                    </span> از{" "}
+                    <span className={"text-orange-500"}>
+                        {todos.todoList.length}
+                    </span>{" "}
+                    انجام شده{" "}
+                </h2>
+            </div>
+        </div>
+    );
 };
 export default Todo;

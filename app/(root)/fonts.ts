@@ -6,5 +6,8 @@ export const estedadMed = localFont({
 export const estedadBold = localFont({
     src: "../fonts/Estedad-Bold.ttf",
 });
+export const sweety = localFont({
+    src: "../fonts/Sweety Rasty.otf",
+});
 
 export const bold = estedadBold.className;

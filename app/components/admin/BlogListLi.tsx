@@ -11,8 +11,7 @@ const BlogListLi = ({ blog }) => {
             body: JSON.stringify({_id})
         })
       //   const wtf = await res.json()
-      //   console.log();
-        
+      //            
         location.reload()
     }
    return (

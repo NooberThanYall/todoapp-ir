@@ -104,3 +104,6 @@ const supabaseUrl = "https://wzaevxnrrqabamgkdxcb.supabase.co";
 
 //@ts-expect-error huh
 export const supabase = createClient(supabaseUrl, process.env.NEXT_PUBLIC_SERVICE_ROLE);
+
+
+export const key = Math.random() * 10000000000

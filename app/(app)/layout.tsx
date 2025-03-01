@@ -7,6 +7,7 @@ import Sidebar from "../components/appSideBar";
 import UserProvider from "../context/UserProvider";
 import React from "react";
 import TodoProvider from "../context/TodoProvider";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const estedadMed = localFont({
   src: "../fonts/Estedad-Medium.ttf",
@@ -26,12 +27,12 @@ export default async function AppLayout({
   return (
     <html lang="fa" dir="rtl">
       <body
-        className={`${estedadMed.className} antialiased justify-center items-center flex min-h-screen w-full`}
+        className={`${estedadMed.className} text-textprimary antialiased justify-center items-center flex min-h-screen w-full`}
       >
         <UserProvider>
           <TodoProvider>
             <Sidebar user={user} />
-            <main className="p-8 justify-center items-center bg-lightblue flex w-screen h-screen">
+            <main className="p-8 justify-center items-center bg-darkbg  flex w-screen h-screen">
               {children}
             </main>
           </TodoProvider>

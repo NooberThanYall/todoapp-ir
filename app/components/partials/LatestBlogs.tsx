@@ -4,8 +4,8 @@ import React from 'react'
 
 const LatestBlogs = ({latestBlogs}: {latestBlogs: BlogType[]}) => {
   return (
-    <div className="w-full bg-darkblue text-gray-200 p-6 rounded-lg shadow-md max-h-96">
-               <h2 className="flex gap-2 text-md font-bold mb-4 border-b border-lightblue pb-2">
+    <div className="w-full bg-darkblue text-darkblue p-6 rounded-lg shadow-md max-h-96">
+               <h2 className="flex gap-2 text-md font-bold mb-4 border-b text-white border-lightblue pb-2">
                   <BookOpenText />
                   آخرین مقالات
                </h2>

@@ -10,11 +10,9 @@ const connectDB = async () => {
         throw new Error("Environment variable TOKEN is not defined");
       }
     await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI);
-    console.log('Mongodb connected')
-    return true;
+         return true;
   } catch (error) {
-    console.log(error)
-  }
+       }
 }
 
 export default connectDB;

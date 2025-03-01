@@ -38,8 +38,7 @@ const UploadPage = () => {
     });
 
     const data = await response.json();
-    console.log(data);
-  };
+       };
 
   return (
     <div className="p-8">

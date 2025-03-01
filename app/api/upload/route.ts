@@ -24,8 +24,7 @@ export async function POST(req: NextRequest) {
 
     if (uploadError){
 
-        console.log(uploadError)
-        return NextResponse.json(
+                 return NextResponse.json(
             { success: false, message: "ارور آپلود" },
             { status: 400 }
         );

@@ -20,10 +20,10 @@ const Page = () => {
   }, []);
 
   return (
-    <div className=" text-white p-6 w-full h-screen">
+    <div className="  p-6 w-full h-screen">
       {loading ? (
         <div className="flex justify-center items-center h-full w-full">
-          <span className="text-lightblue text-lg animate-pulse">در حال بارگذاری...</span>
+          <span className="opacity-60 text-lg animate-pulse">در حال بارگذاری...</span>
         </div>
       ) : (
         <Todo todos={todos} add={addTodo} done={doneTodo} />

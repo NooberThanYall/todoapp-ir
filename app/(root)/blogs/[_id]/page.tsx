@@ -16,8 +16,7 @@ const BlogPage = async ({ params }: { params: { _id: string } }) => {
       return <div>Blog not found.</div>;
    }
 
-   // console.log(blog);
-
+   //  
    return (
       <div className="flex gap-8 mt-32">
          {/* Main Content */}
@@ -27,7 +26,7 @@ const BlogPage = async ({ params }: { params: { _id: string } }) => {
 
          {/* Sidebar */}
          <aside className="w-72 flex flex-col gap-4">
-            <div className="w-full bg-darkblue text-gray-200 p-6 rounded-lg shadow-md max-h-96">
+            <div className="w-full bg-darkblue text-darkblue p-6 rounded-lg shadow-md max-h-96">
                
             </div>
             <LatestBlogs latestBlogs={latestBlogs}/>
