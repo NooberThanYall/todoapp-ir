@@ -8,6 +8,9 @@ import { User } from "lucide-react";
  async function Navbar() {
   const session = cookies().get("session")?.value;
   const user = session ? await decrypt(session) : null;
+  console.log(session);
+  console.log(user);
+  
 
   return (
     <nav
