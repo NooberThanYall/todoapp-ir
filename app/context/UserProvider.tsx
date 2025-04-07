@@ -30,4 +30,5 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 // Hook to access the User Context
 export const useUser = () => useContext(UserContext);
 
+
 export default UserProvider;
